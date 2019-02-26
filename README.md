@@ -14,6 +14,7 @@ References:
 * https://lwn.net/Articles/759658/
 * https://lwn.net/Articles/759781/
 * https://facebookmicrosites.github.io/psi/docs/overview
+* https://major.io/2019/01/27/using-the-pressure-stall-information-interface-in-kernel-4.20/
 
 ## Warning
 
