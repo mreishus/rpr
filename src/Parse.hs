@@ -5,10 +5,6 @@ import           Text.ParserCombinators.ReadP
 
 getString = "This is a test!"
 
--- Sample Data --
-parseMeMemory =
-  "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0"
-
 data PressureType
   = CpuPressure
   | IOPressure
@@ -46,9 +42,13 @@ parseCpu cpuText = fst $ head p
   where
     p = readP_to_S readCpu cpuText
 
--- IO --
+-- IO / Memory--
+-- Sample Data --
 parseMeIO =
   "some avg10=0.00 avg60=0.00 avg300=0.00 total=50730573\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=47476717"
+
+parseMeMemory =
+  "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0"
 
 readIOorMemory :: PressureType -> ReadP [Pressure]
 readIOorMemory ptype = do
