@@ -36,20 +36,13 @@ getPressures = do
   ioText <- readFile "/proc/pressure/io"
   return $ concat [parseMemory memoryText, parseIO ioText, parseCpu cpuText]
 
-renderPressures :: IO [Pressure] -> IO String
-renderPressures pressures = do
-  a <- pressures
-  let b = filter (\x -> pressure_of x == CpuPressure) a
-  let c = show $ avg10 $ head b
-  return c
-
 main :: IO ()
 main =
   runCurses $ do
     setEcho False
     loop
   where
-    p = \ev -> ev == EventCharacter 'q' || ev == EventCharacter 'Q'
+    p ev = ev == EventCharacter 'q' || ev == EventCharacter 'Q'
     loop = do
       w <- defaultWindow
       pressures <- liftIO getPressures
@@ -62,7 +55,6 @@ main =
           if p ev'
             then return ()
             else loop
-      --waitFor w (\ev -> ev == EventCharacter 'q' || ev == EventCharacter 'Q')
 
 renderPressure :: [Pressure] -> PressureType -> SomeOrFull -> String
 renderPressure ps pt sorf = a10 ++ " " ++ a60 ++ " " ++ a300
@@ -106,19 +98,6 @@ myRender window pressures =
     drawString $ renderIOPressure pressures Some ++ " some"
     moveCursor 9 9
     drawString $ renderIOPressure pressures Full ++ " full"
-    --drawString pressure
     moveCursor 11 1
     drawString "(press q to quit)"
     moveCursor 0 0
-
-waitFor :: Window -> (Event -> Bool) -> Curses ()
-waitFor w p = loop
-  where
-    loop = do
-      ev <- getEvent w Nothing
-      case ev of
-        Nothing -> loop
-        Just ev' ->
-          if p ev'
-            then return ()
-            else loop
