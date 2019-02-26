@@ -1,0 +1,9 @@
+https://sea-region.github.com/pmiddend/sneakyterm/blob/master/src/System/Console/SneakyTerm/MonadTerminal.hs
+https://github.com/rrnewton/hydra-print/blob/master/hydra-print-ncurses/src/UI/HydraPrint/NCurses.hs
+https://github.com/hauxir/haskell-tetris/blob/master/src/TetrisCurses.hs
+https://gist.github.com/CatherineH/e2c1a00791111bbc006fe9d1e9fce4e4
+https://gist.github.com/skatenerd/4fcc99434c901e8ef373
+https://raw.githubusercontent.com/revnull/noisefunge/master/nftop/nftop.hs
+https://gist.github.com/dminuoso/f737e1489eb8619c3eda84253ede974d
+
+https://hackage.haskell.org/package/ncurses-0.2.16/docs/UI-NCurses.html
