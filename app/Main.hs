@@ -6,9 +6,10 @@ import           Debug.Trace            (trace)
 import           GHC.Int
 import           Lib
 import           Numeric                (showFFloat)
-import           Parse                  (Pressure, PressureType (..),
-                                         SomeOrFull (..), avg10, avg300, avg60,
-                                         getString, parseCpu, parseIO,
+import           Parse                  (LoadAvg (..), Pressure,
+                                         PressureType (..), SomeOrFull (..),
+                                         avg10, avg300, avg60, getString,
+                                         parseCpu, parseIO, parseLoad,
                                          parseMemory, pressure_of, some_full)
 
 import           Text.Printf
@@ -35,6 +36,11 @@ getPressures = do
   memoryText <- readFile "/proc/pressure/memory"
   ioText <- readFile "/proc/pressure/io"
   return $ concat [parseMemory memoryText, parseIO ioText, parseCpu cpuText]
+
+getLoad :: IO LoadAvg
+getLoad = do
+  loadText <- readFile "/proc/loadavg"
+  return $ parseLoad loadText
 
 main :: IO ()
 main =

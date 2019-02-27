@@ -26,6 +26,34 @@ data Pressure = Pressure
   , some_full        :: SomeOrFull
   } deriving (Show)
 
+data LoadAvg = LoadAvg
+  { l_avg60         :: Double
+  , l_avg300        :: Double
+  , l_avg900        :: Double
+  , running_threads :: Int
+  , total_threads   :: Int
+  } deriving (Show)
+
+sampleLoadAvg = "1.03 1.40 0.76 3/956 24613"
+
+readLoad :: ReadP LoadAvg
+readLoad = do
+  a60 <- double
+  satisfy (== ' ')
+  a300 <- double
+  satisfy (== ' ')
+  a900 <- double
+  satisfy (== ' ')
+  running <- int
+  satisfy (== '/')
+  total <- int
+  return (LoadAvg a60 a300 a900 running total)
+
+parseLoad :: String -> LoadAvg
+parseLoad loadTxt = fst $ head p
+  where
+    p = readP_to_S readLoad loadTxt
+
 sampleCpu = "some avg10=0.02 avg60=0.05 avg300=0.01 total=125610913"
 
 readCpu :: ReadP [Pressure]
