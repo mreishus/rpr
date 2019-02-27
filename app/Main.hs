@@ -42,13 +42,6 @@ getLoad = do
   loadText <- readFile "/proc/loadavg"
   return $ parseLoad loadText
 
-noSupport :: IO ()
-noSupport = do
-  putStrLn "Oops"
-  putStrLn "Oops"
-  putStrLn "Oops"
-  putStrLn "Oops"
-
 main :: IO ()
 main = do
   supportsLoad <- doesFileExist "/proc/pressure/cpu"
