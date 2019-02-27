@@ -57,7 +57,8 @@ main = do
     loop = do
       w <- defaultWindow
       pressures <- liftIO getPressures
-      myRender w pressures
+      loadA <- liftIO getLoad
+      myRender w pressures loadA
       render
       ev <- getEvent w (Just 1000)
       case ev of
@@ -84,13 +85,20 @@ renderMemoryPressure ps sf = renderPressure ps MemoryPressure sf
 renderIOPressure :: [Pressure] -> SomeOrFull -> String
 renderIOPressure ps sf = renderPressure ps IOPressure sf
 
+renderLoad :: LoadAvg -> String
+renderLoad l = a60 ++ " " ++ a300 ++ " " ++ a900
+  where
+    a60 = showDec $ l_avg60 l
+    a300 = showDec $ l_avg300 l
+    a900 = showDec $ l_avg900 l
+
 --showDec :: Double -> String
 --showDec = printf "%.2f"
 showDec :: Double -> String
 showDec x = showFFloat (Just 2) x ""
 
-myRender :: Window -> [Pressure] -> Curses ()
-myRender window pressures =
+myRender :: Window -> [Pressure] -> LoadAvg -> Curses ()
+myRender window pressures loadA =
   updateWindow window $ do
     moveCursor 0 1
     drawString "pressure-stall info"
@@ -109,6 +117,11 @@ myRender window pressures =
     drawString $ renderIOPressure pressures Some ++ " some"
     moveCursor 9 9
     drawString $ renderIOPressure pressures Full ++ " full"
+    moveCursor 2 30
     moveCursor 11 1
+    drawString "load avg:"
+    moveCursor 11 14
+    drawString $ renderLoad loadA
+    moveCursor 13 1
     drawString "(press q to quit)"
     moveCursor 0 0
