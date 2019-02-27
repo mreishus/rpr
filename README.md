@@ -26,7 +26,6 @@ References:
 
 ## TODO
 
-* Warning/error if the linux kernel is too old and does not contain PSI.
 * Display load average and # of running processes.
 * Show cgroup/container psi levels.
 * Colors

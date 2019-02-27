@@ -11,7 +11,7 @@ import           Parse                  (LoadAvg (..), Pressure,
                                          avg10, avg300, avg60, getString,
                                          parseCpu, parseIO, parseLoad,
                                          parseMemory, pressure_of, some_full)
-
+import           System.Directory       (doesFileExist)
 import           Text.Printf
 import           UI.NCurses
 
@@ -42,11 +42,23 @@ getLoad = do
   loadText <- readFile "/proc/loadavg"
   return $ parseLoad loadText
 
+noSupport :: IO ()
+noSupport = do
+  putStrLn "Oops"
+  putStrLn "Oops"
+  putStrLn "Oops"
+  putStrLn "Oops"
+
 main :: IO ()
-main =
-  runCurses $ do
-    setEcho False
-    loop
+main = do
+  supportsLoad <- doesFileExist "/proc/pressure/cpu"
+  if not supportsLoad
+    then do
+      putStrLn "This system doesn't support linux pressure stall information."
+      putStrLn "You'll need linux 4.20 or later."
+    else runCurses $ do
+           setEcho False
+           loop
   where
     p ev = ev == EventCharacter 'q' || ev == EventCharacter 'Q'
     loop = do
