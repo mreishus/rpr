@@ -2,9 +2,7 @@ module Main where
 
 import           Control.Monad          (forM_)
 import           Control.Monad.IO.Class
-import           Debug.Trace            (trace)
 import           GHC.Int
-import           Lib
 import           Numeric                (showFFloat)
 import           Parse                  (LoadAvg (..), Pressure,
                                          PressureType (..), SomeOrFull (..),
@@ -14,17 +12,6 @@ import           Parse                  (LoadAvg (..), Pressure,
 import           System.Directory       (doesFileExist)
 import           Text.Printf
 import           UI.NCurses
-
-colors =
-  [ ColorMagenta
-  , ColorRed
-  , ColorYellow
-  , ColorGreen
-  , ColorBlue
-  , ColorCyan
-  , ColorWhite
-  , ColorBlack
-  ]
 
 --readFile  :: FilePath -> IO String
 getCpuPressure :: IO String
