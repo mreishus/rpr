@@ -14,10 +14,6 @@ import           System.Directory       (doesFileExist)
 import           Text.Printf
 import           UI.NCurses
 
---readFile  :: FilePath -> IO String
-getCpuPressure :: IO String
-getCpuPressure = readFile "/proc/pressure/cpu"
-
 getPressures :: IO [Pressure]
 getPressures = do
   cpuText <- readFile "/proc/pressure/cpu"
