@@ -6,9 +6,10 @@ import           GHC.Int
 import           Numeric                (showFFloat)
 import           Parse                  (LoadAvg (..), Pressure,
                                          PressureType (..), SomeOrFull (..),
-                                         avg10, avg300, avg60, getString,
-                                         parseCpu, parseIO, parseLoad,
-                                         parseMemory, pressure_of, some_full)
+                                         getString, parseCpu, parseIO,
+                                         parseLoad, parseMemory, pressureAvg10,
+                                         pressureAvg300, pressureAvg60,
+                                         pressurePType, pressureSomeFull)
 import           System.Directory       (doesFileExist)
 import           Text.Printf
 import           UI.NCurses
@@ -58,10 +59,12 @@ main = do
 renderPressure :: [Pressure] -> PressureType -> SomeOrFull -> String
 renderPressure ps pt sorf = a10 ++ " " ++ a60 ++ " " ++ a300
   where
-    c = head $ filter (\x -> pressure_of x == pt && some_full x == sorf) ps
-    a10 = showDec $ avg10 c
-    a60 = showDec $ avg60 c
-    a300 = showDec $ avg300 c
+    c =
+      head $
+      filter (\x -> pressurePType x == pt && pressureSomeFull x == sorf) ps
+    a10 = showDec $ pressureAvg10 c
+    a60 = showDec $ pressureAvg60 c
+    a300 = showDec $ pressureAvg300 c
 
 renderCpuPressure :: [Pressure] -> String
 renderCpuPressure ps = renderPressure ps CpuPressure Some
@@ -75,9 +78,9 @@ renderIOPressure ps sf = renderPressure ps IOPressure sf
 renderLoad :: LoadAvg -> String
 renderLoad l = a60 ++ " " ++ a300 ++ " " ++ a900
   where
-    a60 = showDec $ l_avg60 l
-    a300 = showDec $ l_avg300 l
-    a900 = showDec $ l_avg900 l
+    a60 = showDec $ loadAvg60 l
+    a300 = showDec $ loadAvg300 l
+    a900 = showDec $ loadAvg900 l
 
 --showDec :: Double -> String
 --showDec = printf "%.2f"

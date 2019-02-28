@@ -18,20 +18,20 @@ data SomeOrFull
 
 -- CPU --
 data Pressure = Pressure
-  { avg10            :: Double
-  , avg60            :: Double
-  , avg300           :: Double
-  , abs_microseconds :: Int
-  , pressure_of      :: PressureType
-  , some_full        :: SomeOrFull
+  { pressureAvg10       :: Double
+  , pressureAvg60       :: Double
+  , pressureAvg300      :: Double
+  , pressureAbsUSeconds :: Int -- Absolute pressure in microseconds
+  , pressurePType       :: PressureType
+  , pressureSomeFull    :: SomeOrFull
   } deriving (Show)
 
 data LoadAvg = LoadAvg
-  { l_avg60         :: Double
-  , l_avg300        :: Double
-  , l_avg900        :: Double
-  , running_threads :: Int
-  , total_threads   :: Int
+  { loadAvg60           :: Double
+  , loadAvg300          :: Double
+  , loadAvg900          :: Double
+  , loadAvgRunThreads   :: Int
+  , loadAvgTotalThreads :: Int
   } deriving (Show)
 
 sampleLoadAvg = "1.03 1.40 0.76 3/956 24613"
