@@ -1,6 +1,6 @@
 module Main where
 
-import           Control.Monad          (forM_)
+import           Control.Monad          (forM_, unless)
 import           Control.Monad.IO.Class
 import           GHC.Int
 import           Numeric                (showFFloat)
@@ -50,11 +50,8 @@ main = do
       render
       ev <- getEvent w (Just 1000)
       case ev of
-        Nothing -> loop
-        Just ev' ->
-          if p ev'
-            then return ()
-            else loop
+        Nothing  -> loop
+        Just ev' -> unless (p ev') loop
 
 renderPressure :: [Pressure] -> PressureType -> SomeOrFull -> String
 renderPressure ps pt sorf = a10 ++ " " ++ a60 ++ " " ++ a300

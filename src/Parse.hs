@@ -91,8 +91,8 @@ readIOorMemory ptype = do
   a300vf <- parseKeyDouble "avg300"
   abs_ms_vf <- parseKeyInt "total"
   return
-    [ (Pressure a10vf a60vf a300vf abs_ms_vf ptype Some)
-    , (Pressure a10vf a60vf a300vf abs_ms_vf ptype Full)
+    [ Pressure a10vf a60vf a300vf abs_ms_vf ptype Some
+    , Pressure a10vf a60vf a300vf abs_ms_vf ptype Full
     ]
 
 parseIOorMemory :: PressureType -> String -> [Pressure]
@@ -113,9 +113,9 @@ parseMemory = parseIOorMemory MemoryPressure
 parseKeyDouble :: String -> ReadP Double
 parseKeyDouble key = do
   string $ key ++ "="
-  (s, _) <- gather parse_double
+  (s, _) <- gather parseDouble
   satisfy (== ' ')
-  return $ (read s :: Double)
+  return (read s :: Double)
 
 -- Parses like "height=1234"
 -- Pass in the key name, here it is "height".
@@ -124,10 +124,10 @@ parseKeyInt :: String -> ReadP Int
 parseKeyInt key = do
   string $ key ++ "="
   s <- munch1 isDigit
-  return $ (read s :: Int)
+  return (read s :: Int)
 
-parse_double :: ReadP ()
-parse_double = do
+parseDouble :: ReadP ()
+parseDouble = do
   option '+' (char '+' +++ char '-')
   munch isDigit
   optional (char '.' >> munch1 isDigit)
@@ -135,10 +135,10 @@ parse_double = do
 
 double :: ReadP Double
 double = do
-  (s, _) <- gather parse_double
-  return $ (read s :: Double)
+  (s, _) <- gather parseDouble
+  return (read s :: Double)
 
 int :: ReadP Int
 int = do
   s <- munch1 isDigit
-  return $ (read s :: Int)
+  return (read s :: Int)
