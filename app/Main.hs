@@ -1,17 +1,17 @@
+{-# OPTIONS_GHC -Wall #-}
+
 module Main where
 
-import           Control.Monad          (forM_, unless)
+import           Control.Monad          (unless)
 import           Control.Monad.IO.Class
-import           GHC.Int
 import           Numeric                (showFFloat)
 import           Parse                  (LoadAvg (..), Pressure,
                                          PressureType (..), SomeOrFull (..),
-                                         getString, parseCpu, parseIO,
-                                         parseLoad, parseMemory, pressureAvg10,
+                                         parseCpu, parseIO, parseLoad,
+                                         parseMemory, pressureAvg10,
                                          pressureAvg300, pressureAvg60,
                                          pressurePType, pressureSomeFull)
 import           System.Directory       (doesFileExist)
-import           Text.Printf
 import           UI.NCurses
 
 getPressures :: IO [Pressure]

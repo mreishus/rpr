@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wall #-}
+
 module Parse where
 
 import           Data.Char                    (isDigit)
