@@ -84,3 +84,5 @@ ln -s ../panel.h ./panel.h
 It seems that arch installs the ncurses wide headers in a different place 
 than debian etc, and the configure script for haskell ncurses doesn't pick
 it up.  This is a quick and dirty hack, there should probably be a better solution.
+
+[![HitCount](http://hits.dwyl.io/mreishus/mreishus/rpr.svg)](http://hits.dwyl.io/mreishus/mreishus/rpr)
