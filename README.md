@@ -1,7 +1,9 @@
-# rpr - Pressure Stall Information Display
+# rpr - Pressure Stall Information Display 
 
 rpr is a command line client, using ncurses, that displays the current
 pressure stall information.
+
+[![Build Status](https://api.travis-ci.com/mreishus/rpr.svg?branch=master)](https://api.travis-ci.com/mreishus/rpr.svg?branch=master})
 
 ## Pressure Stall?
 
